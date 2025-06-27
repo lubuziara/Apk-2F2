@@ -1,0 +1,9 @@
+F:\User\gabno\Downloads\Apk 2F2\TwoFAuthApp\obj\Debug\net8.0\TwoFAuthApp.csproj.AssemblyReference.cache
+F:\User\gabno\Downloads\Apk 2F2\TwoFAuthApp\obj\Debug\net8.0\rpswa.dswa.cache.json
+F:\User\gabno\Downloads\Apk 2F2\TwoFAuthApp\obj\Debug\net8.0\TwoFAuthApp.GeneratedMSBuildEditorConfig.editorconfig
+F:\User\gabno\Downloads\Apk 2F2\TwoFAuthApp\obj\Debug\net8.0\TwoFAuthApp.AssemblyInfoInputs.cache
+F:\User\gabno\Downloads\Apk 2F2\TwoFAuthApp\obj\Debug\net8.0\TwoFAuthApp.AssemblyInfo.cs
+F:\User\gabno\Downloads\Apk 2F2\TwoFAuthApp\obj\Debug\net8.0\TwoFAuthApp.csproj.CoreCompileInputs.cache
+F:\User\gabno\Downloads\Apk 2F2\TwoFAuthApp\obj\Debug\net8.0\TwoFAuthApp.MvcApplicationPartsAssemblyInfo.cache
+F:\User\gabno\Downloads\Apk 2F2\TwoFAuthApp\obj\Debug\net8.0\TwoFAuthApp.RazorAssemblyInfo.cache
+F:\User\gabno\Downloads\Apk 2F2\TwoFAuthApp\obj\Debug\net8.0\TwoFAuthApp.RazorAssemblyInfo.cs

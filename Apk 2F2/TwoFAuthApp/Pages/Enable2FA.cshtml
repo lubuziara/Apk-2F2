@@ -1,0 +1,26 @@
+@page
+@model TwoFAuthApp.Pages.Enable2FAModel
+@{
+    ViewData["Title"] = "Aktywacja 2FA";
+}
+<h2>Aktywacja 2FA</h2>
+@if (Model.QrCodeImageUrl != null)
+{
+    <p>Zeskanuj kod QR aplikacją Google Authenticator lub podobną:</p>
+    <img src="@Model.QrCodeImageUrl" alt="QR Code" />
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="Input.TwoFACode" class="form-label"></label>
+            <input asp-for="Input.TwoFACode" class="form-control" />
+            <span asp-validation-for="Input.TwoFACode" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success">Aktywuj 2FA</button>
+        <div class="text-danger">@Model.ErrorMessage</div>
+    </form>
+}
+else
+{
+    <form method="post">
+        <button type="submit" class="btn btn-primary">Wygeneruj kod 2FA</button>
+    </form>
+} 

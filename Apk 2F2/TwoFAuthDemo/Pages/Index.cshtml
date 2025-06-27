@@ -1,0 +1,55 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Strona główna";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Witaj w TwoFAuthDemo</h1>
+    
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Informacje o koncie</h5>
+                        <p class="card-text">
+                            <strong>Email:</strong> @User.Identity.Name
+                        </p>
+                        
+                        @if (Model.CurrentUser != null)
+                        {
+                            <p class="card-text">
+                                <strong>Status 2FA:</strong> 
+                                @if (Model.CurrentUser.Is2FAEnabled)
+                                {
+                                    <span class="badge bg-success">Aktywne</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning">Nieaktywne</span>
+                                }
+                            </p>
+                            
+                            @if (!Model.CurrentUser.Is2FAEnabled)
+                            {
+                                <div class="mt-3">
+                                    <a asp-page="/Enable2FA" class="btn btn-primary">Aktywuj 2FA</a>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p class="lead">Prosta aplikacja demonstrująca rejestrację, logowanie i obsługę 2FA (TOTP)</p>
+        <div class="mt-4">
+            <a asp-page="/Register" class="btn btn-primary btn-lg me-3">Zarejestruj się</a>
+            <a asp-page="/Login" class="btn btn-outline-primary btn-lg">Zaloguj się</a>
+        </div>
+    }
+</div>

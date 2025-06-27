@@ -1,0 +1,102 @@
+@page
+@model TwoFAuthDemo.Pages.Enable2FAModel
+@{
+    ViewData["Title"] = "Aktywacja 2FA";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="text-center mb-4">Aktywacja 2FA</h2>
+        
+        @if (Model.Secret != null && Model.QrCodeSvg != null)
+        {
+            <div class="text-center mb-4">
+                <p class="lead">Zeskanuj kod QR aplikacją Google Authenticator lub podobną:</p>
+                <div>@Html.Raw(Model.QrCodeSvg)</div>
+                <p class="mt-2 text-muted">Lub wprowadź ręcznie sekret: <code>@Model.Secret</code></p>
+            </div>
+        }
+        
+        @if (Model.QrCodeUrl != null)
+        {
+            <div class="text-center mb-4">
+                <p class="lead">Dodaj konto do aplikacji Google Authenticator lub podobnej:</p>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Sekret TOTP:</h6>
+                        <code class="fs-5">@Model.Secret</code>
+                        
+                        <hr />
+                        
+                        <h6 class="card-title">URL do skanowania:</h6>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" value="@Model.QrCodeUrl" readonly id="qrUrl" />
+                            <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard()">Kopiuj</button>
+                        </div>
+                        
+                        <p class="text-muted small">
+                            Możesz użyć tego URL w aplikacji lub skopiować sekret i dodać ręcznie.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <form method="post">
+                <div class="mb-3">
+                    <label asp-for="Input.TwoFACode" class="form-label">Kod 2FA</label>
+                    <input asp-for="Input.TwoFACode" class="form-control" placeholder="Wprowadź kod z aplikacji" />
+                    <span asp-validation-for="Input.TwoFACode" class="text-danger"></span>
+                    <div class="form-text">Wprowadź kod z aplikacji, aby aktywować 2FA</div>
+                </div>
+                
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">Aktywuj 2FA</button>
+                </div>
+                
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger mt-3">@Model.ErrorMessage</div>
+                }
+            </form>
+        }
+        else
+        {
+            <div class="text-center">
+                <p class="lead">Kliknij poniżej, aby wygenerować sekret dla 2FA:</p>
+                <form method="post">
+                    <button type="submit" class="btn btn-primary btn-lg">Wygeneruj sekret 2FA</button>
+                </form>
+            </div>
+        }
+        
+        <div class="text-center mt-4">
+            <a asp-page="/Index" class="btn btn-outline-secondary">Powrót do strony głównej</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyToClipboard() {
+    var copyText = document.getElementById("qrUrl");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyText.value);
+    
+    var button = event.target;
+    var originalText = button.textContent;
+    button.textContent = "Skopiowano!";
+    button.classList.remove("btn-outline-secondary");
+    button.classList.add("btn-success");
+    
+    setTimeout(function() {
+        button.textContent = originalText;
+        button.classList.remove("btn-success");
+        button.classList.add("btn-outline-secondary");
+    }, 2000);
+}
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 
